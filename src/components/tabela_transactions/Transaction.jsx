@@ -26,19 +26,29 @@ export default ({transactions}) => {
         })
         return total;
     }
-    
     const handleChangePagina = (pagina) => {
         setPaginaAtual(pagina);
-      };
-
+    };
+    
+    /*formatando data e hora */
+    const dateFormat = (date)=> {
+          let dataNova = new Date(date)
+          console.log(date)
+          return dataNova.toLocaleDateString('pt-BR', {timeZone: 'UTC'})
+      }
+      /*formatando moeda */
+    const formatMoeda = (moeda) => {
+        return new Intl.NumberFormat('pt-BR', {style: 'currency', currency: 'BRL'}).format(moeda)
+    }
+   
     function renderizarLinhas() {
         return(
             dadosPaginados.map((item, index) => {
                 return(
                 <tr key={item.id}>
                      
-                     <td >{item.dataTransacao}</td>
-                     <td>{item.saldo}</td>
+                     <td >{dateFormat(item.dataTransacao)}</td>
+                     <td>{formatMoeda(item.saldo)}</td>
                      <td>{item.transferencia.tipo}</td>
                      <td>{item.transferencia.nomeOperadorTransferencia}</td>
                  </tr>  )   
@@ -47,8 +57,8 @@ export default ({transactions}) => {
     return(
         <div className="d-flex flex-column m-4">
             <header className="d-flex justify-content-evenly">
-                <label><b>Saldo total: {getTotalSaldoConta()}</b> </label>
-                <label><b>Saldo total no periodo: {getTotalPeriodo()}</b> </label>
+                <label className="color-white"><b>Saldo total: {formatMoeda(getTotalSaldoConta())}</b> </label>
+                <label className="color-white"><b>Saldo total no periodo: {formatMoeda(getTotalPeriodo())}</b> </label>
             </header>
             <div className="conteudo">
 

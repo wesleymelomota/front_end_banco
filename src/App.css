@@ -1,5 +1,9 @@
-.App {
+.App { /*mudando a cor de fundo*/
   text-align: center;
+  background: #1D976C;
+  background: -webkit-linear-gradient(to right, #93F9B9, #1D976C); 
+  background: linear-gradient(to right, #93F9B9, #1D976C); /**/
+  height: 100%;
 }
 
 .App-logo {
