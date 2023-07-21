@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react"
 import "./transaction.css"
-import Pagination from "../paginator/Paginator"
-
 
 export default ({transactions}) => {
     
@@ -14,15 +12,15 @@ export default ({transactions}) => {
 
     const getTotalPeriodo = () =>{
         let total = 0;
-        transactions.map(dado => {
-            total += dado.saldo
+        dadosPaginados.map(dado => {
+            total += dado.transferencia.valor
         })
         return total;
     }
     const getTotalSaldoConta = ()=> {
         let total = 0;
         transactions.map(dado => {
-            total += dado.conta.saldo.saldo
+            total = dado.conta.saldo.saldo
         })
         return total;
     }
@@ -33,7 +31,6 @@ export default ({transactions}) => {
     /*formatando data e hora */
     const dateFormat = (date)=> {
           let dataNova = new Date(date)
-          console.log(date)
           return dataNova.toLocaleDateString('pt-BR', {timeZone: 'UTC'})
       }
       /*formatando moeda */
@@ -48,7 +45,7 @@ export default ({transactions}) => {
                 <tr key={item.id}>
                      
                      <td >{dateFormat(item.dataTransacao)}</td>
-                     <td>{formatMoeda(item.saldo)}</td>
+                     <td>{formatMoeda(item.transferencia.valor)}</td>
                      <td>{item.transferencia.tipo}</td>
                      <td>{item.transferencia.nomeOperadorTransferencia}</td>
                  </tr>  )   

@@ -21,10 +21,10 @@ export default () => {
                         <Link class="nav-link" to="/transferencias">Transferencias</Link>
                         </li>
                         <li class="nav-item">
-                        <Link class="nav-link disabled" to="/deposito">Depositar(EM BREVE)</Link>
+                        <Link class="nav-link" to="/deposito">Depositar</Link>
                         </li>
                         <li class="nav-item">
-                        <Link class="nav-link disabled">Saque(EM BREVE)</Link>
+                        <Link class="nav-link disabled" to="/saque">Saque</Link>
                         </li>
                         <li class="nav-item">
                         <Link class="nav-link disabled">Informações da conta(EM BREVE)</Link>

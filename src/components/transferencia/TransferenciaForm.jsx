@@ -4,12 +4,13 @@ import axios from 'axios'
 
 export default () => {
     
-    const [valor, setValor] = useState()
-    const [tipo, setTipo] = useState()
-    const [nomeOperadorTransferencia, setOperador] = useState()
-    const [idConta, setIdConta] = useState()
-    const [nomeResponsavel, setnomeResponsavel] = useState()
-    const [numeroConta, setNumeroConta] = useState()
+    const [valor, setValor] = useState('')
+    const [tipo, setTipo] = useState('')
+    const [nomeOperadorTransferencia, setOperador] = useState('')
+    const [idConta, setIdConta] = useState('')
+    const [nomeResponsavel, setnomeResponsavel] = useState('')
+    const [numeroConta, setNumeroConta] = useState('')
+    
     const transferenciaModel = {
         valor: valor,
         tipo: tipo,
@@ -25,6 +26,7 @@ export default () => {
     }
     const getTipo = (e)=> {
         setTipo(e.target.value)
+        
     }
     const getNomeOperador = (e) => {
         setOperador(e.target.value)
@@ -38,13 +40,24 @@ export default () => {
     const getNumeroConta = (e) => {
         setNumeroConta(e.target.value)
     }
+    const clear = () => {
+        setIdConta('')
+        setNumeroConta('')
+        setOperador('')
+        setTipo('')
+        setValor('')
+        setnomeResponsavel('')
     
+    }
     const tranferir = () => {
-       axios.post("http://localhost:8080/banco/transferencia", {valor, tipo, nomeOperadorTransferencia, idConta, nomeResponsavel, numeroConta})
-            .then(resp => {
-                setTransferencia(resp.data)
-            })
-        console.log(transferenciaModel)
+        if(valor && tipo && nomeOperadorTransferencia && idConta && nomeResponsavel && numeroConta != ''){
+            axios.post("http://localhost:8080/banco/transferencia", {valor, tipo, nomeOperadorTransferencia, idConta, nomeResponsavel, numeroConta})
+                 .then(resp => {
+                     setTransferencia(resp.data)
+                 })
+            clear()
+        }
+        
     }
     return(
         <div className="form-content container">
@@ -57,10 +70,11 @@ export default () => {
                     <input type="number" readonly onChange={getValor} class="form-control" id="staticEmail" />
                     </div>
                 </div>
+
                 <div class="mb-3 row">
                     <label for="staticEmail" class="col-sm-2 col-form-label">Tipo</label>
                     <div class="col-sm-10">
-                    <input type="text" readonly onChange={getTipo} class="form-control" id="" />
+                    <input type="text" readonly placeholder='transferencia-entrada ou saida' name="tipo" onChange={getTipo} class="form-control" id="" />
                     </div>
                 </div>
                 <div class="mb-3 row">
@@ -89,9 +103,10 @@ export default () => {
                 </div>
     
                 <div class="mb-3">
-                <button type="button" onClick={tranferir} class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                Enviar
-                    </button>
+                
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    Transferir
+                </button>
                 </div>
                 </div>
             </div>
@@ -104,14 +119,16 @@ export default () => {
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <p>Valor Transferido: {transferencia.valor}</p>
-                            <p>tipo: : {transferencia.tipo}</p>
-                            <p>Nome de Destino: {transferencia.nomeOperadorTransferencia}</p>
+                            <p>Valor Transferido: {valor}</p>
+                            <p>tipo:  {tipo}</p>
+                            <p>Nome de Destino: {nomeOperadorTransferencia}</p>
                         
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                            
+                            <button type="button" onClick={clear} class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                            <button type="button" onClick={tranferir} class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                Confirmar
+                            </button>
                         </div>
                         </div>
                     </div>

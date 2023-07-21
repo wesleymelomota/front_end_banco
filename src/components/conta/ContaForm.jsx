@@ -16,7 +16,7 @@ export default () => {
         setNome(e.target.value)
     }
     const submit = ()=> {
-        axios.post("http://localhost:8080/banco/conta/cadastro", {nomeResponsavel})
+        axios.post("http://localhost:8080/banco/conta", {nomeResponsavel})
         .then(resp => {setConta(resp.data)})
     } 
     
