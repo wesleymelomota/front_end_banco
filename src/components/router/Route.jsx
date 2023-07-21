@@ -10,6 +10,7 @@ export default () => {
         <Route path="/conta" element={<ContaForm/>} />
         <Route path="/transferencia" element={<TransferenciaForm/>} />
         <Route path="/transferencias" element={<Main/>} />
+        <Route path="/deposito" element={<TransferenciaForm/>} />
         <Route path="*" element={<Main/>} />
       
         </Routes>

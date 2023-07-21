@@ -6,18 +6,18 @@ export default () => {
     
     const [valor, setValor] = useState()
     const [tipo, setTipo] = useState()
-    const [nomeOperadorTransacao, setOperador] = useState()
+    const [nomeOperadorTransferencia, setOperador] = useState()
     const [idConta, setIdConta] = useState()
     const [nomeResponsavel, setnomeResponsavel] = useState()
     const [numeroConta, setNumeroConta] = useState()
-    const TransferenciaModel = {
+    const transferenciaModel = {
         valor: valor,
         tipo: tipo,
-        nomeOperadorTransacao: nomeOperadorTransacao,
+        nomeOperadorTransferencia: nomeOperadorTransferencia,
         idConta: {idConta: Number.parseInt(idConta), nomeResponsavel: nomeResponsavel, numeroConta: Number.parseInt(numeroConta)}
         
     }
-    const [transferencia, setTransferencia] = useState(TransferenciaModel)
+    const [transferencia, setTransferencia] = useState(transferenciaModel)
 
 
     const getValor = (e) => {
@@ -38,44 +38,62 @@ export default () => {
     const getNumeroConta = (e) => {
         setNumeroConta(e.target.value)
     }
-
+    
     const tranferir = () => {
-       axios.post("http://localhost:8080/banco/transferencia", {valor, tipo, nomeOperadorTransacao, idConta, nomeResponsavel, numeroConta})
+       axios.post("http://localhost:8080/banco/transferencia", {valor, tipo, nomeOperadorTransferencia, idConta, nomeResponsavel, numeroConta})
             .then(resp => {
                 setTransferencia(resp.data)
             })
-        console.log(valor)
+        console.log(transferenciaModel)
     }
     return(
-        <div className="form-content">
-           <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label">Valor</label>
-            <input type="number" name="valor" onChange={getValor} class="form-control" id="exampleFormControlInput1" placeholder="R$"/>
-            </div>
-           <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label">Tipo</label>
-            <input type="text" onChange={getTipo} name="tipo" class="form-control" id="exampleFormControlInput1" placeholder="tipo transferencia"/>
-            </div>
-           <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label">Nome Operador Transação</label>
-            <input type="text" onChange={getNomeOperador} name="nomeOperadorTransferencia" class="form-control" id="exampleFormControlInput1" placeholder="quem recebe ?"/>
-            </div>
-           <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label">contaId</label>
-            <input type="number" onChange={getIdConta} name="contaId" class="form-control" id="exampleFormControlInput1" placeholder="id"/>
-            </div>
-           <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label">nome Responsavel</label>
-            <input type="text" onChange={getNomeResponsavel} name="nomeResponsavel" class="form-control" id="exampleFormControlInput1" placeholder=""/>
-            </div>
-           <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label">Numero Conta</label>
-            <input type="number" onChange={getNumeroConta} name="numeroConta" class="form-control" id="exampleFormControlInput1" placeholder="numero da conta"/>
-            </div>
-           <div class="mb-3">
-           <button type="button" onClick={tranferir} class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                        Enviar
-            </button>
+        <div className="form-content container">
+            <div className="card formulario">
+                <div className="card-body">
+
+                <div class="mb-3 row">
+                    <label for="staticEmail" class="col-sm-2 col-form-label">Valor</label>
+                    <div class="col-sm-10">
+                    <input type="number" readonly onChange={getValor} class="form-control" id="staticEmail" />
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label for="staticEmail" class="col-sm-2 col-form-label">Tipo</label>
+                    <div class="col-sm-10">
+                    <input type="text" readonly onChange={getTipo} class="form-control" id="" />
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label for="staticEmail" class="col-sm-2 col-form-label">Nome</label>
+                    <div class="col-sm-10">
+                    <input type="text" readonly name="nomeOperadorTransferencia" onChange={getNomeOperador} class="form-control" id="" />
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label for="staticEmail" class="col-sm-2 col-form-label">Id Conta</label>
+                    <div class="col-sm-10">
+                    <input type="number" readonly onChange={getIdConta} class="form-control" id="" />
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label for="staticEmail" class="col-sm-2 col-form-label">Nome Destino</label>
+                    <div class="col-sm-10">
+                    <input type="text" readonly onChange={getNomeResponsavel} class="form-control" id="" />
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label for="staticEmail" class="col-sm-2 col-form-label">Numero Conta</label>
+                    <div class="col-sm-10">
+                    <input type="number" readonly onChange={getNumeroConta} class="form-control" id="" />
+                    </div>
+                </div>
+    
+                <div class="mb-3">
+                <button type="button" onClick={tranferir} class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                Enviar
+                    </button>
+                </div>
+                </div>
             </div>
 
             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -86,9 +104,9 @@ export default () => {
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <label>Valor Transferido: {transferencia.valor}</label>
-                            <label>tipo: : {transferencia.tipo}</label>
-                            <label>Nome de Destino: {transferencia.tipo}</label>
+                            <p>Valor Transferido: {transferencia.valor}</p>
+                            <p>tipo: : {transferencia.tipo}</p>
+                            <p>Nome de Destino: {transferencia.nomeOperadorTransferencia}</p>
                         
                         </div>
                         <div class="modal-footer">

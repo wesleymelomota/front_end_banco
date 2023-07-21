@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"
-//mudando a cor background
+
 export default () => {
 
     return(
@@ -12,16 +12,25 @@ export default () => {
                     <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                        <Link class="nav-link active" aria-current="page" to="/conta">Abrir Conta</Link>
+                        <Link class="nav-link active" aria-current="page" to="/conta">Criar Conta</Link>
                         </li>
                         <li class="nav-item">
-                        <Link class="nav-link disabled" to="/transferencia">Transferir</Link>
+                        <Link class="nav-link " to="/transferencia">Transferir</Link>
                         </li>
                         <li class="nav-item">
                         <Link class="nav-link" to="/transferencias">Transferencias</Link>
                         </li>
                         <li class="nav-item">
-                        <Link class="nav-link disabled">Disabled</Link>
+                        <Link class="nav-link disabled" to="/deposito">Depositar(EM BREVE)</Link>
+                        </li>
+                        <li class="nav-item">
+                        <Link class="nav-link disabled">Saque(EM BREVE)</Link>
+                        </li>
+                        <li class="nav-item">
+                        <Link class="nav-link disabled">Informações da conta(EM BREVE)</Link>
+                        </li>
+                        <li class="nav-item">
+                        <Link class="nav-link disabled">Sair(EM BREVE)</Link>
                         </li>
                     </ul>
                     </div>

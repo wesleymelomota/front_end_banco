@@ -1,6 +1,6 @@
 import { useState } from "react"
 import axios from "axios"
-import './conta.css' /*adicioando css */
+import './conta.css' 
 export default () => {
 
     const [nomeResponsavel, setNome] = useState()

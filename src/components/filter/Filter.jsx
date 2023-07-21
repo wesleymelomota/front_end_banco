@@ -1,7 +1,7 @@
 import { Component, useEffect, useState } from "react"
 import Transaction from "../tabela_transactions/Transaction"
 import axios from 'axios'
-import './filter.css' /*adicionando css */
+import './filter.css' 
 export default () => {
     
     const [dataInicio, setDataInicio] = useState();
@@ -33,12 +33,12 @@ export default () => {
                 
                     <div class="mb-3">
                         <label for="exampleFormControlInput1" className="form-label color-white">Data Inicio</label>
-                        <input type="datetime-local" onChange={getDataInicio} value={dataInicio} className="form-control" id="exampleFormControlInput1" placeholder=""/>
+                        <input type="date" onChange={getDataInicio} value={dataInicio} className="form-control" id="exampleFormControlInput1" placeholder=""/>
                         
                     </div>
                     <div class="mb-3">
                         <label for="exampleFormControlInput1" className="form-label color-white">Data Fim</label>
-                        <input type="datetime-local" onChange={getDataFim} value={dataFim} className="form-control" id="exampleFormControlInput1" placeholder=""/>
+                        <input type="date" onChange={getDataFim} value={dataFim} className="form-control" id="exampleFormControlInput1" placeholder=""/>
                     </div>
                 <div class="mb-3">
                     <label for="exampleFormControlInput1" className="form-label color-white">Nome Operador</label>
