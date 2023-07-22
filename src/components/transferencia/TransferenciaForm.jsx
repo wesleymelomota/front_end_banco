@@ -18,8 +18,6 @@ export default () => {
         idConta: {idConta: Number.parseInt(idConta), nomeResponsavel: nomeResponsavel, numeroConta: Number.parseInt(numeroConta)}
         
     }
-    const [transferencia, setTransferencia] = useState(transferenciaModel)
-
 
     const getValor = (e) => {
         setValor(parseFloat( e.target.value))
@@ -52,9 +50,7 @@ export default () => {
     const tranferir = () => {
         if(valor && tipo && nomeOperadorTransferencia && idConta && nomeResponsavel && numeroConta != ''){
             axios.post("http://localhost:8080/banco/transferencia", {valor, tipo, nomeOperadorTransferencia, idConta, nomeResponsavel, numeroConta})
-                 .then(resp => {
-                     setTransferencia(resp.data)
-                 })
+                 .then(resp => {})
             clear()
         }
         
