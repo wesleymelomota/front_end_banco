@@ -61,38 +61,38 @@ export default () => {
                 <div className="card-body">
 
                 <div class="mb-3 row">
-                    <label for="staticEmail" class="col-sm-2 col-form-label">Valor</label>
+                    <label for="staticEmail" class="col-sm-2 col-form-label text-light fs-5">Valor</label>
                     <div class="col-sm-10">
                     <input type="number" readonly onChange={getValor} class="form-control" id="staticEmail" />
                     </div>
                 </div>
 
                 <div class="mb-3 row">
-                    <label for="staticEmail" class="col-sm-2 col-form-label">Tipo</label>
+                    <label for="staticEmail" class="col-sm-2 col-form-label text-light fs-5">Tipo</label>
                     <div class="col-sm-10">
                     <input type="text" readonly placeholder='transferencia-entrada ou saida' name="tipo" onChange={getTipo} class="form-control" id="" />
                     </div>
                 </div>
                 <div class="mb-3 row">
-                    <label for="staticEmail" class="col-sm-2 col-form-label">Nome</label>
+                    <label for="staticEmail" class="col-sm-2 col-form-label text-light fs-5">Nome</label>
                     <div class="col-sm-10">
                     <input type="text" readonly name="nomeOperadorTransferencia" onChange={getNomeOperador} class="form-control" id="" />
                     </div>
                 </div>
                 <div class="mb-3 row">
-                    <label for="staticEmail" class="col-sm-2 col-form-label">Id Conta</label>
+                    <label for="staticEmail" class="col-sm-2 col-form-label text-light fs-5">Id Conta</label>
                     <div class="col-sm-10">
                     <input type="number" readonly onChange={getIdConta} class="form-control" id="" />
                     </div>
                 </div>
                 <div class="mb-3 row">
-                    <label for="staticEmail" class="col-sm-2 col-form-label">Nome Destino</label>
+                    <label for="staticEmail" class="col-sm-2 col-form-label text-light fs-5">Nome Destino</label>
                     <div class="col-sm-10">
                     <input type="text" readonly onChange={getNomeResponsavel} class="form-control" id="" />
                     </div>
                 </div>
                 <div class="mb-3 row">
-                    <label for="staticEmail" class="col-sm-2 col-form-label">Numero Conta</label>
+                    <label for="staticEmail" class="col-sm-2 col-form-label text-light fs-5">Numero Conta</label>
                     <div class="col-sm-10">
                     <input type="number" readonly onChange={getNumeroConta} class="form-control" id="" />
                     </div>

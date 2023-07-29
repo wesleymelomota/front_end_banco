@@ -1,14 +1,15 @@
 import { useEffect, useState } from "react"
 import "./transaction.css"
+import { useSelector } from "react-redux";
 
-export default ({transactions}) => {
-    
+export default () => {
+    const transactionList = useSelector((state) => state.conta.transactions)
     const itensPorPagina = 3;
     const [paginaAtual, setPaginaAtual] = useState(1);
     const indiceInicial = (paginaAtual - 1) * itensPorPagina;
     const indiceFinal = paginaAtual * itensPorPagina;
-    const dadosPaginados = transactions.slice(indiceInicial, indiceFinal);
-    const totalPaginas = Math.ceil(transactions.length / itensPorPagina);
+    const dadosPaginados = transactionList.slice(indiceInicial, indiceFinal);
+    const totalPaginas = Math.ceil(transactionList.length / itensPorPagina);
 
     const getTotalPeriodo = () =>{
         let total = 0;
@@ -19,7 +20,7 @@ export default ({transactions}) => {
     }
     const getTotalSaldoConta = ()=> {
         let total = 0;
-        transactions.map(dado => {
+        transactionList.map(dado => {
             total = dado.conta.saldo.saldo
         })
         return total;
@@ -28,12 +29,11 @@ export default ({transactions}) => {
         setPaginaAtual(pagina);
     };
     
-    /*formatando data e hora */
     const dateFormat = (date)=> {
           let dataNova = new Date(date)
           return dataNova.toLocaleDateString('pt-BR', {timeZone: 'UTC'})
-      }
-      /*formatando moeda */
+    }
+
     const formatMoeda = (moeda) => {
         return new Intl.NumberFormat('pt-BR', {style: 'currency', currency: 'BRL'}).format(moeda)
     }

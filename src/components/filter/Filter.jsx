@@ -2,17 +2,21 @@ import { Component, useEffect, useState } from "react"
 import Transaction from "../tabela_transactions/Transaction"
 import axios from 'axios'
 import './filter.css' 
+import { useDispatch } from "react-redux"
+import {setListTransactions} from '../../recursos/conta/contaSlice'
+
 export default () => {
     
     const [dataInicio, setDataInicio] = useState();
     const [dataFim, setDataFim] = useState();
     const [nomeOperador, setNomeOperador] = useState();
-    const [transactions, setTransactions] = useState([])
-       
+    const [transactions, setTransactions] = useState([]);
+    const dispatch = useDispatch();
+
     const pesquisar = () => {
         
         axios.get("http://localhost:8080/banco/transactions", {params: {dataInicio, dataFim, nomeOperador}})
-        .then(response =>{ setTransactions(response.data)})
+        .then(response =>{ dispatch(setListTransactions(response.data))/*setTransactions(response.data)*/})
         
     }
     const getDataInicio = (e) => {
