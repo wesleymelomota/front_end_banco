@@ -16,25 +16,25 @@ export const contaSlice = createSlice({
             },
             isLoggedIn: false
            
-        },
-        isLoggedIn: false
+        }
     },
     reducers: {
         setConta: (state, actions) => {
-            state.contaModel = actions.payload
+            state.sessao.conta = actions.payload
         },
+
        setListTransactions: (state, actions)=> {
-            state.transactions = actions.payload
+            state.sessao.conta.transacoes = actions.payload
         },
         setSessao: (state, actions)=> {
             state.sessao = actions.payload
-            state.sessao.isLoggedIn = true;
-            
-
+            state.transactions = actions.payload.conta.transacoes
+            state.sessao.isLoggedIn = true;  
        },
-       login: (state, actions) => {
-            state.isLoggedIn = true;
+       setSaldoConta: (state, actions) => {
+            state.sessao.conta.saldo.saldo = actions.payload
        },
+       
        logout: (state, actions)=> {
         state.sessao.token = ''
         state.sessao.isLoggedIn = false
@@ -44,8 +44,9 @@ export const contaSlice = createSlice({
             transacoes: [],
             saldo: {id: null, saldo: null}}
        }
+
     }
 })
 
-export const { setConta, setListTransactions, setSessao, logout, login } = contaSlice.actions
+export const { setConta, setListTransactions, setSessao, logout, setSaldoConta } = contaSlice.actions
 export default contaSlice.reducer

@@ -2,16 +2,13 @@ import { useState } from "react"
 import axios from "axios"
 import './conta.css' 
 import { Link } from "react-router-dom"
-import { useSelector } from "react-redux"
 
 export default () => {
 
-    const [nomeResponsavel, setNome] = useState();
-    const [username, setUserName] = useState();
-    const [email, setEmail] = useState();
-    const [password, setPassword] = useState();
-
-    const conta = useSelector((state) => state.conta.contaModel)
+    const [nomeResponsavel, setNome] = useState('');
+    const [username, setUserName] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
 
     const getNomeResponsavel = (e)=> {
         setNome(e.target.value)
@@ -25,12 +22,18 @@ export default () => {
     const getPassword = (e) => {
         setPassword(e.target.value)
     }
+    const cleanFilds = () => {
+        setNome('')
+        setUserName('')
+        setEmail('')
+        setPassword('')
+    }
 
     const criarConta = ()=> {
         if(nomeResponsavel && username && password && email != ''){
             axios.post("http://localhost:8080/banco/conta", {nomeResponsavel, username, email, password})
-            .then(resp => {})
-
+                .then(response => {})
+           cleanFilds()
         }
     } 
     
@@ -55,7 +58,7 @@ export default () => {
                         <div class="row m-1">
                             <label>Senha</label>
                             <div class="col">
-                                <input type="text" onChange={getPassword}  class="form-control" name="password" aria-label="First name"/>
+                                <input type="password" onChange={getPassword}  class="form-control" name="password" aria-label="First name"/>
                             </div>
                         </div>
                         <div class="row m-1">
@@ -65,8 +68,13 @@ export default () => {
                             </div>
                         </div>
                         <button type="button" onClick={criarConta} class="btn btn-primary m-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                            Criar
+                            Salvar
                         </button>
+                        <Link to="/">
+                            <button type="button"  class="btn btn-secondary m-2">
+                                Cancelar
+                            </button>
+                        </Link>
                         <p>Tem uma Conta ? <Link to='/login'>Entrar</Link></p>
                     </div>
                     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -83,7 +91,7 @@ export default () => {
                                 </span>
                             </div>
                             <div class="modal-footer">
-                            <Link to="/"><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button></Link>
+                            <Link to="/conta"><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button></Link>
                             <Link to="/login"><button className="btn btn-primary" data-bs-dismiss="modal">Entrar</button></Link>
                             </div>
                             </div>

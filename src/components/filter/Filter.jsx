@@ -2,7 +2,7 @@ import { Component, useEffect, useState } from "react"
 import Transaction from "../tabela_transactions/Transaction"
 import axios from 'axios'
 import './filter.css' 
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import {setListTransactions} from '../../recursos/conta/contaSlice'
 
 export default () => {
@@ -10,14 +10,12 @@ export default () => {
     const [dataInicio, setDataInicio] = useState();
     const [dataFim, setDataFim] = useState();
     const [nomeOperador, setNomeOperador] = useState();
-    const [transactions, setTransactions] = useState([]);
+    const token = useSelector((state) => state.conta.sessao.token)
     const dispatch = useDispatch();
 
-    const pesquisar = () => {
-        
-        axios.get("http://localhost:8080/banco/transactions", {params: {dataInicio, dataFim, nomeOperador}})
-        .then(response =>{ dispatch(setListTransactions(response.data))/*setTransactions(response.data)*/})
-        
+    const pesquisar = () => {  
+        axios.get("http://localhost:8080/banco/transactions",  {params: {dataInicio, dataFim, nomeOperador}, headers: {Authorization: token}})
+        .then(response =>{ dispatch(setListTransactions(response.data))})
     }
     const getDataInicio = (e) => {
         setDataInicio(e.target.value)
@@ -28,8 +26,6 @@ export default () => {
     }
     const getNomeOperador = (e) => {
         setNomeOperador(e.target.value)
-        console.log(e.target.value)
-        
     }
     return(
         <div className="m-4 d-flex flex-column">
@@ -52,7 +48,7 @@ export default () => {
             <span className="d-flex justify-content-end">
                 <button type="button" onClick={pesquisar} className="btn btn-success ">Pesquisar</button>
             </span>
-            <Transaction transactions={transactions} ></Transaction>
+            <Transaction ></Transaction>
         </div>
     )
 }

@@ -1,14 +1,16 @@
-import { Link } from "react-router-dom"
+import { Link, redirect, useNavigate } from "react-router-dom"
 import {useSelector, useDispatch} from 'react-redux'
 import {logout} from '../../recursos/conta/contaSlice'
+import { useEffect } from "react";
+import './nav.css'
 
 export default () => {
-    const saldo = useSelector((state) => state.conta.sessao.conta.saldo.saldo)
-    const conta = useSelector((state) => state.conta.sessao.conta)
-    const sessao = useSelector((state) => state.conta.sessao)
-    const numeroConta = useSelector((state) => state.conta.sessao.conta.numeroConta)
-    const isLoggedIn = useSelector((state) => state.conta.sessao.isLoggedIn)
-    const dispatch = useDispatch()
+    const saldo = useSelector((state) => state.conta.sessao.conta.saldo.saldo);
+    const conta = useSelector((state) => state.conta.sessao.conta);
+    const numeroConta = useSelector((state) => state.conta.sessao.conta.numeroConta);
+    const isLoggedIn = useSelector((state) => state.conta.sessao.isLoggedIn);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     let contentTransferir;
     let contentTransferencias;
@@ -19,23 +21,28 @@ export default () => {
     let contentEntrar;
     let contentCriarConta;
     
-    
-    if(isLoggedIn){
-        let sair = ()=> {
-            dispatch(logout())
+    useEffect(()=> {
+        if(isLoggedIn == false){
+            navigate('/index')
         }
-        contentTransferir = <Link class="nav-link " to="/transferencia">Transferir</Link>
-        contentTransferencias = <Link class="nav-link" to="/transferencias">Transferencias</Link>
-        contentDepositar = <Link class="nav-link" to="/deposito">Depositar</Link>
-        contentSaque = <Link class="nav-link " to="/saque">Saque</Link>
-        contentLogout = <Link onClick={sair} class="nav-link">Sair</Link>
-        contentInfoConta = <Link class="nav-link " type="button" 
+
+    },[isLoggedIn])
+    const sair = ()=> {
+        dispatch(logout())
+    }
+    if(isLoggedIn){
+        contentTransferir = <Link className="nav-link text-white" to="/transferencia">Transferir</Link>
+        contentTransferencias = <Link className="nav-link text-white" to="/transferencias">Transferencias</Link>
+        contentDepositar = <Link className="nav-link text-white" to="/deposito">Depositar</Link>
+        contentSaque = <Link className="nav-link text-white" to="/saque">Saque</Link>
+        contentLogout = <Link onClick={sair} className="nav-link text-white">Sair</Link>
+        contentInfoConta = <Link className="nav-link text-white" type="button" 
         data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample"
         aria-controls="offcanvasExample">Informações da conta</Link>
         
     }else{
-        contentEntrar = <Link class="nav-link active" aria-current="page" to="/login">Entrar</Link>
-        contentCriarConta = <Link class="nav-link active" aria-current="page" to="/conta">Criar Conta</Link>
+        contentEntrar = <Link class="nav-link active text-white" aria-current="page" to="/login">Entrar</Link>
+        contentCriarConta = <Link class="nav-link active text-white" aria-current="page" to="/conta">Criar Conta</Link>
         
     }
     
@@ -44,9 +51,9 @@ export default () => {
     }
     return(
         <>
-            <nav class="navbar navbar-expand-lg bg-body-tertiary ">
+            <nav class="navbar navbar-expand-lg  nav-green">
                 <div class="container-fluid">
-                    <Link class="navbar-brand" to="/">Banco</Link>
+                    <Link class="navbar-brand text-white" to="/index">Banco</Link>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                     </button>

@@ -1,11 +1,15 @@
 import { useState } from 'react'
 import './deposito.css'
 import axios from 'axios';
+import { useSelector, useDispatch } from 'react-redux';
+import { setConta } from '../../recursos/conta/contaSlice';
 
 export default () => {
     const [nomeResponsavelConta, setNome] = useState('');
     const [numeroConta, setNumeroConta] = useState('');
     const [valor, setValor] = useState('');
+    const token = useSelector((state) => state.conta.sessao.token);
+    const dispatch = useDispatch();
 
     const getNomeResponsavel = (e)=> {
         setNome(e.target.value)
@@ -18,13 +22,13 @@ export default () => {
     }
     const depositar = ()=> {
         if(nomeResponsavelConta && numeroConta && valor != ''){
-            axios.post('http://localhost:8080/banco/transaction/deposito', {nomeResponsavelConta, numeroConta, valor})
-                .then(resp => {})
+            axios.post('http://localhost:8080/banco/transaction/deposito', {nomeResponsavelConta, numeroConta, valor}, {headers: {Authorization: token}})
+                .then(response => {dispatch(setConta(response.data))})
                 
-            clear()
+            clean()
         }
     }
-    const clear = () => {
+    const clean = () => {
         setNome('')
         setNumeroConta('')
         setValor('')
@@ -54,8 +58,11 @@ export default () => {
                     </div>
                 </div>
                 <div class="mb-3">
-                    <button type="button"  class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    <button type="button"  class="btn btn-primary m-1" data-bs-toggle="modal" data-bs-target="#exampleModal">
                         Depositar
+                    </button>
+                    <button type="button" onClick={clean} class="btn btn-secondary m-1"  >
+                        Cancelar
                     </button>
                 </div>
                     
@@ -64,7 +71,7 @@ export default () => {
                     <div class="modal-dialog">
                         <div class="modal-content">
                         <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="exampleModalLabel">Sua Transferencia</h1>
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Depósito</h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
@@ -74,7 +81,7 @@ export default () => {
                         
                         </div>
                         <div class="modal-footer">
-                            <button type="button" onClick={clear} class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                            <button type="button" onClick={clean} class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
                             <button type="button" onClick={depositar}  class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                 Confirmar
                             </button>

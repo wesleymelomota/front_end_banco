@@ -1,25 +1,30 @@
 import { useState } from 'react';
 import './saque.css'
 import axios from 'axios';
+import { useSelector, useDispatch } from 'react-redux';
+import { setConta } from '../../recursos/conta/contaSlice';
 
 export default () => {
-    const [nomeTitularConta, setNome] = useState('')
-    const [numeroConta, setNumeroConta] = useState('')
-    const [valor, setValor] = useState('')
+    const [nomeTitularConta, setNome] = useState('');
+    const [numeroConta, setNumeroConta] = useState('');
+    const [valor, setValor] = useState('');
+    const token = useSelector((state) => state.conta.sessao.token);
+    const dispatch = useDispatch();
 
-    const sacar = () => {
-        if(nomeTitularConta && numeroConta && valor != ''){
-            axios.post("http://localhost:8080/banco/saque", {nomeTitularConta, numeroConta, valor})
-                .then(resp => {})
-        }
-    }
-    const formatMoeda = (moeda) => {
-        return new Intl.NumberFormat('pt-BR', {style: 'currency', currency: 'BRL'}).format(moeda)
-    }
-    const clear = ()=> {
+    const clean = ()=> {
         setNome('')
         setNumeroConta('')
         setValor('')
+    }
+    const sacar = () => {
+        if(nomeTitularConta && numeroConta && valor != ''){
+            axios.post("http://localhost:8080/banco/saque", {nomeTitularConta, numeroConta, valor}, {headers: {Authorization: token}})
+                .then(response => {dispatch(setConta(response.data))})
+        }
+        clean()
+    }
+    const formatMoeda = (moeda) => {
+        return new Intl.NumberFormat('pt-BR', {style: 'currency', currency: 'BRL'}).format(moeda)
     }
     const getNomeTitular = (e)=> {
         setNome(e.target.value)
@@ -54,8 +59,11 @@ export default () => {
                 </div>
                 <div class="mb-3">
                 
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                <button type="button" class="btn btn-primary m-1" data-bs-toggle="modal" data-bs-target="#exampleModal">
                     Sacar
+                </button>
+                <button type="button" onClick={clean} class="btn btn-secondary m-1" >
+                    Cancelar
                 </button>
                 </div>
 
@@ -73,7 +81,7 @@ export default () => {
                         
                         </div>
                         <div class="modal-footer">
-                            <button type="button" onClick={clear} class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                            <button type="button" onClick={clean} class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
                             <button type="button" onClick={sacar} class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                 Confirmar
                             </button>

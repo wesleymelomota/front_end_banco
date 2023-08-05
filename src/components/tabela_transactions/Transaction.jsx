@@ -3,28 +3,28 @@ import "./transaction.css"
 import { useSelector } from "react-redux";
 
 export default () => {
-    const transactionList = useSelector((state) => state.conta.transactions)
+    const transactionList = useSelector((state) => state.conta.sessao.conta.transacoes)
+    const saldoTotal = useSelector((state) => state.conta.sessao.conta.saldo.saldo)
     const itensPorPagina = 3;
     const [paginaAtual, setPaginaAtual] = useState(1);
     const indiceInicial = (paginaAtual - 1) * itensPorPagina;
     const indiceFinal = paginaAtual * itensPorPagina;
     const dadosPaginados = transactionList.slice(indiceInicial, indiceFinal);
     const totalPaginas = Math.ceil(transactionList.length / itensPorPagina);
+    
+    useEffect(()=> {
+        
+    }, [transactionList])
 
     const getTotalPeriodo = () =>{
         let total = 0;
         dadosPaginados.map(dado => {
             total += dado.transferencia.valor
+            
         })
         return total;
     }
-    const getTotalSaldoConta = ()=> {
-        let total = 0;
-        transactionList.map(dado => {
-            total = dado.conta.saldo.saldo
-        })
-        return total;
-    }
+    
     const handleChangePagina = (pagina) => {
         setPaginaAtual(pagina);
     };
@@ -44,7 +44,7 @@ export default () => {
                 return(
                 <tr key={item.id}>
                      
-                     <td >{dateFormat(item.dataTransacao)}</td>
+                     <td >{dateFormat(item.transferencia.dataTransferencia)}</td>
                      <td>{formatMoeda(item.transferencia.valor)}</td>
                      <td>{item.transferencia.tipo}</td>
                      <td>{item.transferencia.nomeOperadorTransferencia}</td>
@@ -54,7 +54,7 @@ export default () => {
     return(
         <div className="d-flex flex-column m-4">
             <header className="d-flex justify-content-evenly">
-                <label className="color-white"><b>Saldo total: {formatMoeda(getTotalSaldoConta())}</b> </label>
+                <label className="color-white"><b>Saldo total: {formatMoeda(saldoTotal)}</b> </label>
                 <label className="color-white"><b>Saldo total no periodo: {formatMoeda(getTotalPeriodo())}</b> </label>
             </header>
             <div className="conteudo">
