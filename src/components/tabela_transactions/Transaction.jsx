@@ -12,10 +12,13 @@ export default () => {
     const dadosPaginados = transactionList.slice(indiceInicial, indiceFinal);
     const totalPaginas = Math.ceil(transactionList.length / itensPorPagina);
     
-    useEffect(()=> {
-        
-    }, [transactionList])
-
+    /*fazer algoritimo de ordenacao por data */
+    // const ordenarTransferenciasPorData = ( array) =>{
+    //     const newArray = []
+    //     for(let i = 0; i < array.length; i++){
+           
+    //     }
+    // }
     const getTotalPeriodo = () =>{
         let total = 0;
         dadosPaginados.map(dado => {

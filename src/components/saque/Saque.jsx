@@ -38,34 +38,38 @@ export default () => {
     return(
         <div className="saque">
             <div className="container">
-                <div className="formulario">
-                <div class="mb-3 row">
-                    <label for="staticEmail" class="col-sm-2 col-form-label text-light fs-5">Nome Titular da conta</label>
-                    <div class="col-sm-10">
-                    <input type="text" onChange={getNomeTitular} readonly class="form-control" id="staticEmail" placeholder='nome'/>
+                <h2 className='text-light'>Saque</h2>
+                <div className="card ">
+                    <div className="card-body">
+
+                        <div class="mb-3 row">
+                            <label for="staticEmail" class="col-sm-2 col-form-label  fs-5">Nome Titular da conta</label>
+                            <div class="col-sm-10">
+                            <input type="text" value={nomeTitularConta} onChange={getNomeTitular} readonly class="form-control" id="staticEmail" placeholder='nome'/>
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label for="staticEmail" class="col-sm-2 col-form-label fs-5">Numero da Conta</label>
+                            <div class="col-sm-10">
+                            <input type="number" value={numeroConta} onChange={getNumeroConta} readonly class="form-control" id="staticEmail" placeholder='numero da conta'/>
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label for="staticEmail" class="col-sm-2 col-form-label fs-5">Valor R$</label>
+                            <div class="col-sm-10">
+                            <input type="number" value={valor} onChange={getValor} readonly class="form-control" id="staticEmail" placeholder='R$'/>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                        
+                        <button type="button" class="btn btn-success m-1" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            Sacar
+                        </button>
+                        <button type="button" onClick={clean} class="btn btn-secondary m-1" >
+                            Cancelar
+                        </button>
+                        </div>
                     </div>
-                </div>
-                <div class="mb-3 row">
-                    <label for="staticEmail" class="col-sm-2 col-form-label text-light fs-5">Numero da Conta</label>
-                    <div class="col-sm-10">
-                    <input type="number" onChange={getNumeroConta} readonly class="form-control" id="staticEmail" placeholder='numero da conta'/>
-                    </div>
-                </div>
-                <div class="mb-3 row">
-                    <label for="staticEmail" class="col-sm-2 col-form-label text-light fs-5">Valor R$</label>
-                    <div class="col-sm-10">
-                    <input type="text" onChange={getValor} readonly class="form-control" id="staticEmail" placeholder='R$'/>
-                    </div>
-                </div>
-                <div class="mb-3">
-                
-                <button type="button" class="btn btn-primary m-1" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                    Sacar
-                </button>
-                <button type="button" onClick={clean} class="btn btn-secondary m-1" >
-                    Cancelar
-                </button>
-                </div>
 
                 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog">

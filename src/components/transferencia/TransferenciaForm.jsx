@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './transferencia.css'
 import axios from 'axios'
 import { useSelector, useDispatch } from 'react-redux'
@@ -13,8 +13,13 @@ export default () => {
     const [nomeResponsavel, setnomeResponsavel] = useState('')
     const [numeroConta, setNumeroConta] = useState('')
     const [dataTransferencia, setDataTransferencia] = useState('')
+    const [checkedIn, setChecked] = useState(false)
+
     const token = useSelector((state) => state.conta.sessao.token)
+    const conta = useSelector((state) => state.conta.sessao.conta)
     const dispatch = useDispatch()
+
+    let form;
     
     const transferenciaDto = {
         valor: valor,
@@ -62,72 +67,128 @@ export default () => {
         getSelectTipo()
     }
     const clean = () => {
-        setIdConta('')
-        setNumeroConta('')
-        setOperador('')
-        setTipo('')
         setValor('')
+        setTipo('')
+        setOperador('')
+        setIdConta('')
         setnomeResponsavel('')
-    
+        setNumeroConta('')
+        setDataTransferencia('')
+        
     }
-    return(
-        <div className="form-content container">
-            <div className="card formulario">
-                <div className="card-body">
-
+    
+    const getTitularConta = (e) =>{
+        
+        setChecked(e.target.checked)
+        if(e.target.checked == true){
+            console.log(conta)
+            setIdConta(conta.idConta)
+            setNumeroConta(conta.numeroConta)
+            setnomeResponsavel(conta.nomeResponsavel)
+            setOperador(conta.nomeResponsavel)
+        }
+        
+    }
+    if(checkedIn){
+        form =  <>
                 <div class="mb-3 row">
-                    <label for="staticEmail" class="col-sm-2 col-form-label text-light fs-5">Valor</label>
+                    <label for="staticEmail" class="col-sm-2 col-form-label  fs-6">Valor</label>
                     <div class="col-sm-10">
-                    <input type="number" readonly onChange={getValor} class="form-control" id="staticEmail" />
+                    <input type="number" readonly name='valor' value={valor} onChange={getValor} class="form-control" id="staticEmail" />
                     </div>
                 </div>
                 <div class="mb-3 row">
-                    <label for="staticEmail" class="col-sm-2 col-form-label text-light fs-5">Tipo</label>
+                    <label for="staticEmail" class="col-sm-2 col-form-label  fs-6">Tipo</label>
                     <div class="col-sm-10">
-                        <select name='tipo' id='tipo'>
+                        <select class="form-select" name='tipo' id='tipo' aria-label="Default select example">
                             <option value="transferencia-entrada" selected>Transferencia Entrada</option>
-                            <option value="transferencia-saida">Transferencia Saida</option>
+                            <option value="transferencia-saida" disabled>Transferencia Saida</option>
                         </select>
                     </div>
                 </div>
                 
                 <div class="mb-3 row">
-                    <label for="staticEmail" class="col-sm-2 col-form-label text-light fs-5">Nome</label>
+                    <label for="staticEmail" class="col-sm-2 col-form-label  fs-6">Data Transferência</label>
                     <div class="col-sm-10">
-                    <input type="text" readonly name="nomeOperadorTransferencia" onChange={getNomeOperador} class="form-control" id="" />
+                    <input type="date" value={dataTransferencia} onChange={getDataTransferencia} readonly name="dataTransferencia" class="form-control" />
+                    </div>
+                </div>
+        </>
+    }else{
+        form =  <>
+                <div class="mb-3 row">
+                    <label for="staticEmail" class="col-sm-2 col-form-label  fs-6">Valor</label>
+                    <div class="col-sm-10">
+                    <input type="number" readonly value={valor} onChange={getValor} class="form-control" id="staticEmail" />
                     </div>
                 </div>
                 <div class="mb-3 row">
-                    <label for="staticEmail" class="col-sm-2 col-form-label text-light fs-5">Id Conta</label>
+                    <label for="staticEmail" class="col-sm-2 col-form-label  fs-6">Tipo</label>
                     <div class="col-sm-10">
-                    <input type="number" readonly onChange={getIdConta} class="form-control" id="" />
+                        <select class="form-select" name='tipo' id='tipo' aria-label="Default select example">
+                            <option value="transferencia-entrada" >Transferencia Entrada</option>
+                            <option value="transferencia-saida" selected>Transferencia Saida</option>
+                        </select>
                     </div>
                 </div>
                 <div class="mb-3 row">
-                    <label for="staticEmail" class="col-sm-2 col-form-label text-light fs-5">Nome Destino</label>
+                    <label for="staticEmail" class="col-sm-2 col-form-label  fs-6">Nome</label>
                     <div class="col-sm-10">
-                    <input type="text" readonly onChange={getNomeResponsavel} class="form-control" id="" />
+                    <input type="text" value={nomeOperadorTransferencia} readonly name="nomeOperadorTransferencia" onChange={getNomeOperador} class="form-control" id="" />
                     </div>
                 </div>
                 <div class="mb-3 row">
-                    <label for="staticEmail" class="col-sm-2 col-form-label text-light fs-5">Numero Conta</label>
+                    <label for="staticEmail" class="col-sm-2 col-form-label  fs-6">Id Conta</label>
                     <div class="col-sm-10">
-                    <input type="number" readonly onChange={getNumeroConta} class="form-control" id="" />
+                    <input type="number" value={idConta} readonly onChange={getIdConta} class="form-control" id="" />
                     </div>
                 </div>
                 <div class="mb-3 row">
-                    <label for="staticEmail" class="col-sm-2 col-form-label text-light fs-5">Data Transferência</label>
+                    <label for="staticEmail" class="col-sm-2 col-form-label  fs-6">Nome Destino</label>
                     <div class="col-sm-10">
-                    <input type="date" onChange={getDataTransferencia} readonly name="dataTransferencia" class="form-control" />
+                    <input type="text" readonly value={nomeResponsavel} onChange={getNomeResponsavel} class="form-control" id="" />
                     </div>
                 </div>
-    
-                <div class="mb-3">
-                
-                <button type="button" onClick={getSelectTipo} class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                    Transferir
-                </button>
+                <div class="mb-3 row">
+                    <label for="staticEmail" class="col-sm-2 col-form-label  fs-6">Numero Conta</label>
+                    <div class="col-sm-10">
+                    <input type="number" readonly value={numeroConta} onChange={getNumeroConta} class="form-control" id="" />
+                    </div>
                 </div>
+                <div class="mb-3 row">
+                    <label for="staticEmail" class="col-sm-2 col-form-label  fs-6">Data Transferência</label>
+                    <div class="col-sm-10">
+                    <input type="date" value={dataTransferencia} onChange={getDataTransferencia} readonly name="dataTransferencia" class="form-control" />
+                    </div>
+                </div>
+        </>
+    }
+    return(
+        <div className="form-content container">
+            <div className="card ">
+                <div className="card-body">
+
+                    <div class="mb-3 row">
+                            <label  for="staticEmail" class="col-sm-2 col-form-label  fs-6">
+                                Conta Destino é minha ?
+                            </label>
+                        <div class="col-sm-10 d-flex ">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" onChange={getTitularConta} role="switch" id="flexSwitchCheckChecked"/>
+                                <label class="form-check-label" for="flexSwitchCheckChecked"></label>
+                            </div>
+                        </div>
+                    </div>
+                        {form}
+                    <div class="mb-3">
+                    
+                        <button type="button" onClick={getSelectTipo} class="btn btn-success m-1" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            Transferir
+                        </button>
+                        <button type="button" onClick={clean} class="btn btn-secondary m-1">
+                            Cancelar
+                        </button>
+                    </div>
                 </div>
             </div>
 

@@ -38,32 +38,35 @@ export default () => {
     }
     return(
         <div className="container content ">
-            <div className="formulario ">
-                <div class="mb-3 row">
-                    <label for="staticEmail" class="col-sm-2 col-form-label text-light fs-5">Nome</label>
-                    <div class="col-sm-10">
-                        <input type="text" value={nomeResponsavelConta} onChange={getNomeResponsavel} name="nomeResponsavelConta" readonly  class="form-control" id="staticEmail" />
+            <h2 className='text-white'>Deposito</h2>
+            <div className="card ">
+                <div className="card-body">
+                    <div class="mb-3 row">
+                        <label for="staticEmail" class="col-sm-2 col-form-label  fs-5">Nome</label>
+                        <div class="col-sm-10">
+                            <input type="text" value={nomeResponsavelConta} onChange={getNomeResponsavel} name="nomeResponsavelConta" readonly  class="form-control" id="staticEmail" />
+                        </div>
                     </div>
-                </div>
-                <div class="mb-3 row">
-                    <label for="staticEmail" class="col-sm-2 col-form-label text-light fs-5">Numero Conta</label>
-                    <div class="col-sm-10">
-                        <input type="number" value={numeroConta} onChange={getNumeroConta} name="numeroConta" readonly  class="form-control" id="staticEmail" />
+                    <div class="mb-3 row">
+                        <label for="staticEmail" class="col-sm-2 col-form-label fs-5">Numero Conta</label>
+                        <div class="col-sm-10">
+                            <input type="number" value={numeroConta} onChange={getNumeroConta} name="numeroConta" readonly  class="form-control" id="staticEmail" />
+                        </div>
                     </div>
-                </div>
-                <div class="mb-3 row">
-                    <label for="staticEmail" class="col-sm-2 col-form-label text-light fs-5">Valor R$</label>
-                    <div class="col-sm-10">
-                        <input type="number" value={valor} onChange={getValor} name="valor" readonly  class="form-control" id="staticEmail" />
+                    <div class="mb-3 row">
+                        <label for="staticEmail" class="col-sm-2 col-form-label fs-5">Valor R$</label>
+                        <div class="col-sm-10">
+                            <input type="number" value={valor} onChange={getValor} name="valor" readonly  class="form-control" id="staticEmail" />
+                        </div>
                     </div>
-                </div>
-                <div class="mb-3">
-                    <button type="button"  class="btn btn-primary m-1" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                        Depositar
-                    </button>
-                    <button type="button" onClick={clean} class="btn btn-secondary m-1"  >
-                        Cancelar
-                    </button>
+                    <div class="mb-3">
+                        <button type="button"  class="btn btn-success m-1" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            Depositar
+                        </button>
+                        <button type="button" onClick={clean} class="btn btn-secondary m-1"  >
+                            Cancelar
+                        </button>
+                    </div>
                 </div>
                     
 
