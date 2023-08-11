@@ -1,7 +1,6 @@
-import { Link, redirect, useNavigate } from "react-router-dom"
+import { Link } from "react-router-dom"
 import {useSelector, useDispatch} from 'react-redux'
 import {logout} from '../../recursos/conta/contaSlice'
-import { useEffect } from "react";
 import './nav.css'
 
 export default () => {
@@ -10,7 +9,6 @@ export default () => {
     const numeroConta = useSelector((state) => state.conta.sessao.conta.numeroConta);
     const isLoggedIn = useSelector((state) => state.conta.sessao.isLoggedIn);
     const dispatch = useDispatch();
-    const navigate = useNavigate();
 
     let contentTransferir;
     let contentTransferencias;
@@ -20,15 +18,10 @@ export default () => {
     let contentLogout;
     let contentEntrar;
     let contentCriarConta;
-    
-    useEffect(()=> {
-        if(isLoggedIn == false){
-            navigate('/index')
-        }
 
-    },[isLoggedIn])
     const sair = ()=> {
         dispatch(logout())
+        
     }
     if(isLoggedIn){
         contentTransferir = <Link className="nav-link text-white" to="/transferencia">Transferir</Link>

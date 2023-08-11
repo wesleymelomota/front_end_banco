@@ -3,12 +3,26 @@ import './login.css'
 import { useState } from 'react'
 import axios from 'axios'
 import {setSessao, login} from '../../recursos/conta/contaSlice'
-import {useDispatch} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 
 export default () => {
     const [username, setUserName] = useState('')
     const [password, setPassword] = useState('')
     const dispatch = useDispatch();
+    const isLoggedIn = useState(false)
+    const [sessao, setSessaoAtual] = useState(
+         {
+            username: '',
+            token: '',
+            conta: {
+                idConta: null,
+                nomeResponsavel: '',
+                numeroConta: null,
+                transacoes: [],
+                saldo: {id: null, saldo: null}
+            }
+         }
+    )
     const navigate = useNavigate()
 
     const getUserName = (e) => {
@@ -17,37 +31,51 @@ export default () => {
     const getPassword = (e) => {
         setPassword(e.target.value)
     }
-
+    const clean = ()=> {
+        setUserName('')
+        setPassword('')
+    }
     const  logar = () => {
         if(username && password != ''){
+
             axios.post('http://localhost:8080/banco/login', {username, password})
                 .then(response => {dispatch(setSessao(response.data)) })
+                .catch(err => alert("Usuário ou senha invalido"))
+            clean()
             navigate('/transferencias')
-        }
-    }
-
+            
+                }
+            }
+    
+    
     return(
         <div className="main">
             <div className="card">
                 <div className="card-body">
                     <h4>Entrar</h4>
-                <div class="mb-3 row">
-                        <label for="staticEmail" class="col-sm-2 col-form-label text-dark fs-5">Nome de Usuario</label>
-                        <div class="col-sm-10">
-                        <input type="text" onChange={getUserName} readonly class="form-control" id="" />
+                    
+                    <form class="row g-3 needs-validation " novalidate>
+                        <div class="col-md-6 position-relative">
+                            <label for="validationTooltip01" class="form-label">Nome de usuário</label>
+                            <input type="text" class="form-control" onChange={getUserName} id="validationTooltip01" value={username} required/>
+                            <div class="valid-tooltip">
+                                Muito Bem!
+                            </div>
                         </div>
-                </div>
-                <div class="mb-3 row">
-                        <label for="staticEmail" class="col-sm-2 col-form-label text-dark fs-5">Senha</label>
-                        <div class="col-sm-10">
-                        <input type="password" onChange={getPassword} readonly class="form-control" id="" />
+                        <div class="col-md-6 position-relative">
+                            <label for="validationTooltip02" class="form-label">Senha</label>
+                            <input type="password" class="form-control" onChange={getPassword} id="validationTooltip02" value={password} required/>
+                            <div class="valid-tooltip">
+                                Muito Bem!
+                            </div>
                         </div>
+                        <div class="col-12">
+                            <button class="btn btn-success m-2" type="submit"  onClick={logar}>Entrar</button>
+                            <Link to="/"><button className="btn btn-secondary m-2">Cancelar</button></Link>
+                        </div>
+                    </form>
                 </div>
-                </div>
-                <div className="btns">
-                    <button className='btn btn-success m-2' onClick={logar}>Entrar</button>
-                    <Link to="/"><button className="btn btn-secondary m-2">Cancelar</button></Link>
-                </div>
+                
                 <p>Não tem Conta ? <Link className='text-decoration-none' to='/conta'>Criar</Link></p>
             </div>
         </div>
