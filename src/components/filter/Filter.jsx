@@ -1,21 +1,27 @@
-import { Component, useEffect, useState } from "react"
+import {  useState } from "react"
 import Transaction from "../tabela_transactions/Transaction"
-import axios from 'axios'
 import './filter.css' 
 import { useDispatch, useSelector } from "react-redux"
 import {setListTransactions} from '../../recursos/conta/contaSlice'
+import serviceTransaction from '../../api/serviceTransaction'
 
 export default () => {
     
-    const [dataInicio, setDataInicio] = useState();
-    const [dataFim, setDataFim] = useState();
-    const [nomeOperador, setNomeOperador] = useState();
+    const [dataInicio, setDataInicio] = useState('');
+    const [dataFim, setDataFim] = useState('');
+    const [nomeOperador, setNomeOperador] = useState('');
     const token = useSelector((state) => state.conta.sessao.token)
     const dispatch = useDispatch();
 
     const pesquisar = () => {  
-        axios.get("http://localhost:8080/banco/transactions",  {params: {dataInicio, dataFim, nomeOperador}, headers: {Authorization: token}})
-        .then(response =>{ dispatch(setListTransactions(response.data))})
+        if(dataInicio && dataFim  != ''){
+            serviceTransaction(dataInicio, dataFim, nomeOperador, token).then(response =>{ dispatch(setListTransactions(response.data))})
+        }else if(nomeOperador != ''){
+            serviceTransaction(null, null, nomeOperador, token).then(response =>{ dispatch(setListTransactions(response.data))})
+        }
+        else{
+            serviceTransaction(null, null, null, token).then(response =>{ dispatch(setListTransactions(response.data))})
+        }
     }
     const getDataInicio = (e) => {
         setDataInicio(e.target.value)

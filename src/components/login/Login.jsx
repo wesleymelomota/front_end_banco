@@ -2,27 +2,14 @@ import { Link, useNavigate } from 'react-router-dom'
 import './login.css'
 import { useState } from 'react'
 import axios from 'axios'
-import {setSessao, login} from '../../recursos/conta/contaSlice'
+import {setSessao} from '../../recursos/conta/contaSlice'
 import {useDispatch, useSelector} from 'react-redux'
 
 export default () => {
     const [username, setUserName] = useState('')
     const [password, setPassword] = useState('')
     const dispatch = useDispatch();
-    const isLoggedIn = useState(false)
-    const [sessao, setSessaoAtual] = useState(
-         {
-            username: '',
-            token: '',
-            conta: {
-                idConta: null,
-                nomeResponsavel: '',
-                numeroConta: null,
-                transacoes: [],
-                saldo: {id: null, saldo: null}
-            }
-         }
-    )
+    
     const navigate = useNavigate()
 
     const getUserName = (e) => {
