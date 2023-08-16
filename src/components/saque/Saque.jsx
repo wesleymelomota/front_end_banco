@@ -1,24 +1,29 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './saque.css'
-import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
 import { setConta } from '../../recursos/conta/contaSlice';
+import serviceSaque from '../../api/serviceSaque';
 
 export default () => {
     const [nomeTitularConta, setNome] = useState('');
     const [numeroConta, setNumeroConta] = useState('');
     const [valor, setValor] = useState('');
+    
+    const conta = useSelector((state) => state.conta.sessao.conta);
     const token = useSelector((state) => state.conta.sessao.token);
     const dispatch = useDispatch();
+    
+    useEffect(()=> {
+        setNome(conta.nomeResponsavel)
+        setNumeroConta(conta.numeroConta)
+    })
 
     const clean = ()=> {
-        setNome('')
-        setNumeroConta('')
         setValor('')
     }
     const sacar = () => {
         if(nomeTitularConta && numeroConta && valor != ''){
-            axios.post("http://localhost:8080/banco/saque", {nomeTitularConta, numeroConta, valor}, {headers: {Authorization: token}})
+             serviceSaque(nomeTitularConta, numeroConta, valor, token)   
                 .then(response => {dispatch(setConta(response.data))})
         }
         clean()
@@ -42,18 +47,6 @@ export default () => {
                 <div className="card ">
                     <div className="card-body">
 
-                        <div class="mb-3 row">
-                            <label for="staticEmail" class="col-sm-2 col-form-label  fs-5">Nome Titular da conta</label>
-                            <div class="col-sm-10">
-                            <input type="text" value={nomeTitularConta} onChange={getNomeTitular} readonly class="form-control" id="staticEmail" placeholder='nome'/>
-                            </div>
-                        </div>
-                        <div class="mb-3 row">
-                            <label for="staticEmail" class="col-sm-2 col-form-label fs-5">Numero da Conta</label>
-                            <div class="col-sm-10">
-                            <input type="number" value={numeroConta} onChange={getNumeroConta} readonly class="form-control" id="staticEmail" placeholder='numero da conta'/>
-                            </div>
-                        </div>
                         <div class="mb-3 row">
                             <label for="staticEmail" class="col-sm-2 col-form-label fs-5">Valor R$</label>
                             <div class="col-sm-10">

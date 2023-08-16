@@ -1,14 +1,18 @@
 import { useState } from 'react'
 import './deposito.css'
-import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
 import { setConta } from '../../recursos/conta/contaSlice';
+import serviceDeposito from '../../api/serviceDeposito';
 
 export default () => {
     const [nomeResponsavelConta, setNome] = useState('');
     const [numeroConta, setNumeroConta] = useState('');
     const [valor, setValor] = useState('');
+    const [checkedIn, setChecked] = useState(false)
+    
     const token = useSelector((state) => state.conta.sessao.token);
+    const conta = useSelector((state) => state.conta.sessao.conta);
+    let formDeposito;
     const dispatch = useDispatch();
 
     const getNomeResponsavel = (e)=> {
@@ -22,9 +26,8 @@ export default () => {
     }
     const depositar = ()=> {
         if(nomeResponsavelConta && numeroConta && valor != ''){
-            axios.post('http://localhost:8080/banco/transaction/deposito', {nomeResponsavelConta, numeroConta, valor}, {headers: {Authorization: token}})
+            serviceDeposito(nomeResponsavelConta, numeroConta, valor, token)  
                 .then(response => {dispatch(setConta(response.data))})
-                
             clean()
         }
     }
@@ -36,29 +39,67 @@ export default () => {
     const formatMoeda = (moeda) => {
         return new Intl.NumberFormat('pt-BR', {style: 'currency', currency: 'BRL'}).format(moeda)
     }
+    const checkConta = (e) =>{
+        setChecked(e.target.checked)
+        if(e.target.checked == true){
+            setNome(conta.nomeResponsavel)
+            setNumeroConta(conta.numeroConta)
+        }else{
+            setNome('')
+            setNumeroConta('')
+        }
+        
+    }
+
+    if(checkedIn){
+        formDeposito = <>
+            <div class="mb-3 row">
+                <label for="staticEmail" class="col-sm-2 col-form-label fs-5">Valor R$</label>
+                <div class="col-sm-10">
+                    <input type="number" value={valor} onChange={getValor} name="valor" readonly  class="form-control" id="staticEmail" />
+                </div>
+            </div>
+            
+        </>
+    }else{
+        formDeposito = <>
+            <div class="mb-3 row">
+                <label for="staticEmail" class="col-sm-2 col-form-label  fs-5">Nome</label>
+                <div class="col-sm-10">
+                    <input type="text" value={nomeResponsavelConta} onChange={getNomeResponsavel} name="nomeResponsavelConta" readonly  class="form-control" id="staticEmail" />
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="staticEmail" class="col-sm-2 col-form-label fs-5">Numero Conta</label>
+                <div class="col-sm-10">
+                    <input type="number" value={numeroConta} onChange={getNumeroConta} name="numeroConta" readonly  class="form-control" id="staticEmail" />
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="staticEmail" class="col-sm-2 col-form-label fs-5">Valor R$</label>
+                <div class="col-sm-10">
+                    <input type="number" value={valor} onChange={getValor} name="valor" readonly  class="form-control" id="staticEmail" />
+                </div>
+            </div>
+        </>
+    }
     return(
         <div className="container content ">
             <h2 className='text-white'>Deposito</h2>
             <div className="card ">
                 <div className="card-body">
                     <div class="mb-3 row">
-                        <label for="staticEmail" class="col-sm-2 col-form-label  fs-5">Nome</label>
-                        <div class="col-sm-10">
-                            <input type="text" value={nomeResponsavelConta} onChange={getNomeResponsavel} name="nomeResponsavelConta" readonly  class="form-control" id="staticEmail" />
+                        <label  for="staticEmail" class="col-sm-2 col-form-label  fs-6">
+                                Depositar na Própria conta ?
+                        </label>
+                        <div class="col-sm-10 d-flex ">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" onChange={checkConta} role="switch" id="flexSwitchCheckChecked"/>
+                                <label class="form-check-label" for="flexSwitchCheckChecked"></label>
+                            </div>
                         </div>
                     </div>
-                    <div class="mb-3 row">
-                        <label for="staticEmail" class="col-sm-2 col-form-label fs-5">Numero Conta</label>
-                        <div class="col-sm-10">
-                            <input type="number" value={numeroConta} onChange={getNumeroConta} name="numeroConta" readonly  class="form-control" id="staticEmail" />
-                        </div>
-                    </div>
-                    <div class="mb-3 row">
-                        <label for="staticEmail" class="col-sm-2 col-form-label fs-5">Valor R$</label>
-                        <div class="col-sm-10">
-                            <input type="number" value={valor} onChange={getValor} name="valor" readonly  class="form-control" id="staticEmail" />
-                        </div>
-                    </div>
+                        {formDeposito}
                     <div class="mb-3">
                         <button type="button"  class="btn btn-success m-1" data-bs-toggle="modal" data-bs-target="#exampleModal">
                             Depositar
