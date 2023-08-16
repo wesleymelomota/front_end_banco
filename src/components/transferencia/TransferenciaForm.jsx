@@ -1,9 +1,9 @@
-import { useEffect, useState } from 'react'
+import {  useState } from 'react'
 import './transferencia.css'
-import axios from 'axios'
 import { useSelector, useDispatch } from 'react-redux'
 import { setConta } from '../../recursos/conta/contaSlice'
-
+import serviceTransferencia from '../../api/serviceTransferencia'
+/*add serviceTransferencia */
 export default () => {
     
     const [valor, setValor] = useState('')
@@ -58,10 +58,9 @@ export default () => {
     }
     const tranferir = () => {
         if(valor && tipo && nomeOperadorTransferencia && idConta && nomeResponsavel && numeroConta && dataTransferencia != ''){
-            axios.post("http://localhost:8080/banco/transferencia", {valor, tipo, nomeOperadorTransferencia, dataTransferencia, conta: transferenciaDto.conta}, 
-            {headers: {Authorization: token, "Content-Type": "application/json"}})
-            .then(response => {dispatch(setConta(response.data))})
-            .catch(erro => {console.log(erro)})
+            serviceTransferencia(valor, tipo, nomeOperadorTransferencia, dataTransferencia,  transferenciaDto.conta, token)
+                .then(response => {dispatch(setConta(response.data))})
+                .catch(erro => {console.log(erro)})
             clean()
         }
         getSelectTipo()
@@ -78,10 +77,8 @@ export default () => {
     }
     
     const getTitularConta = (e) =>{
-        
         setChecked(e.target.checked)
         if(e.target.checked == true){
-            console.log(conta)
             setIdConta(conta.idConta)
             setNumeroConta(conta.numeroConta)
             setnomeResponsavel(conta.nomeResponsavel)

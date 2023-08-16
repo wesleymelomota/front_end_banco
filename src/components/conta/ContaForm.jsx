@@ -1,7 +1,8 @@
 import { useState } from "react"
-import axios from "axios"
 import './conta.css' 
 import { Link } from "react-router-dom"
+import serviceConta from "../../api/serviceConta"
+/*alteração: add serviceConta */
 
 export default () => {
 
@@ -31,8 +32,7 @@ export default () => {
 
     const criarConta = ()=> {
         if(nomeResponsavel && username && password && email != ''){
-            axios.post("http://localhost:8080/banco/conta", {nomeResponsavel, username, email, password})
-                .then(response => {})
+            serviceConta(nomeResponsavel, username, email, password).then(response => {}).catch(err => console.log(err))
            cleanFilds()
         }
     } 

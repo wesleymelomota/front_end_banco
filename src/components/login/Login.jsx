@@ -1,9 +1,9 @@
 import { Link, useNavigate } from 'react-router-dom'
 import './login.css'
 import { useState } from 'react'
-import axios from 'axios'
 import {setSessao} from '../../recursos/conta/contaSlice'
-import {useDispatch, useSelector} from 'react-redux'
+import {useDispatch} from 'react-redux'
+import serviceLogin from '../../api/serviceLogin'
 
 export default () => {
     const [username, setUserName] = useState('')
@@ -24,10 +24,7 @@ export default () => {
     }
     const  logar = () => {
         if(username && password != ''){
-
-            axios.post('http://localhost:8080/banco/login', {username, password})
-                .then(response => {dispatch(setSessao(response.data)) })
-                .catch(err => alert("Usuário ou senha invalido"))
+            serviceLogin(username, password).then(response => {dispatch(setSessao(response.data)) }).catch(err => alert("Usuário ou senha invalido"))
             clean()
             navigate('/transferencias')
             
@@ -43,14 +40,14 @@ export default () => {
                     
                     <form class="row g-3 needs-validation " novalidate>
                         <div class="col-md-6 position-relative">
-                            <label for="validationTooltip01" class="form-label">Nome de usuário</label>
+                            <label for="validationTooltip01" class="form-label fs-5">Nome de usuário</label>
                             <input type="text" class="form-control" onChange={getUserName} id="validationTooltip01" value={username} required/>
                             <div class="valid-tooltip">
                                 Muito Bem!
                             </div>
                         </div>
                         <div class="col-md-6 position-relative">
-                            <label for="validationTooltip02" class="form-label">Senha</label>
+                            <label for="validationTooltip02" class="form-label fs-5">Senha</label>
                             <input type="password" class="form-control" onChange={getPassword} id="validationTooltip02" value={password} required/>
                             <div class="valid-tooltip">
                                 Muito Bem!
