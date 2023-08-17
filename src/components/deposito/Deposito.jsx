@@ -52,7 +52,7 @@ export default () => {
     }
 
     if(checkedIn){
-        formDeposito = <>
+        formDeposito =
             <div class="mb-3 row">
                 <label for="staticEmail" class="col-sm-2 col-form-label fs-5">Valor R$</label>
                 <div class="col-sm-10">
@@ -60,23 +60,23 @@ export default () => {
                 </div>
             </div>
             
-        </>
+        
     }else{
         formDeposito = <>
             <div class="mb-3 row">
-                <label for="staticEmail" class="col-sm-2 col-form-label  fs-5">Nome</label>
+                <label for="staticEmail" class="col-sm-2 col-form-label  fs-6">Nome Responsável Conta</label>
                 <div class="col-sm-10">
                     <input type="text" value={nomeResponsavelConta} onChange={getNomeResponsavel} name="nomeResponsavelConta" readonly  class="form-control" id="staticEmail" />
                 </div>
             </div>
             <div class="mb-3 row">
-                <label for="staticEmail" class="col-sm-2 col-form-label fs-5">Numero Conta</label>
+                <label for="staticEmail" class="col-sm-2 col-form-label fs-6">Numero Conta Destino</label>
                 <div class="col-sm-10">
                     <input type="number" value={numeroConta} onChange={getNumeroConta} name="numeroConta" readonly  class="form-control" id="staticEmail" />
                 </div>
             </div>
             <div class="mb-3 row">
-                <label for="staticEmail" class="col-sm-2 col-form-label fs-5">Valor R$</label>
+                <label for="staticEmail" class="col-sm-2 col-form-label fs-6">Valor R$</label>
                 <div class="col-sm-10">
                     <input type="number" value={valor} onChange={getValor} name="valor" readonly  class="form-control" id="staticEmail" />
                 </div>
