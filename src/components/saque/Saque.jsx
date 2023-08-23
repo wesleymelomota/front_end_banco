@@ -43,7 +43,7 @@ export default () => {
     return(
         <div className="saque">
             <div className="container">
-                <h2 className='text-light'>Saque</h2>
+                <h2 className=''>Saque</h2>
                 <div className="card ">
                     <div className="card-body">
 

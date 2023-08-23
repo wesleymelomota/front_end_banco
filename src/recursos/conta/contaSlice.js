@@ -5,7 +5,7 @@ export const contaSlice = createSlice({
     initialState: {
         transactions: [],
         sessao: {
-            username: '',
+            userName: '',
             token: '',
             conta: {
                 idConta: null,
@@ -16,6 +16,12 @@ export const contaSlice = createSlice({
             },
             isLoggedIn: false
            
+        },
+        usuario: {
+            id: '',
+            name: '',
+            username: '', 
+            email: ''
         }
     },
     reducers: {
@@ -43,10 +49,16 @@ export const contaSlice = createSlice({
             numeroConta: null,
             transacoes: [],
             saldo: {id: null, saldo: null}}
+       },
+       setUsuario: (state, actions) => {
+        state.usuario = actions.payload
+       }, 
+       updateUsername: (state, actions)=> {
+        state.sessao.userName = actions.payload
        }
 
     }
 })
 
-export const { setConta, setListTransactions, setSessao, logout, setSaldoConta } = contaSlice.actions
+export const { setConta, setListTransactions, setSessao, logout, setSaldoConta, setUsuario, updateUsername } = contaSlice.actions
 export default contaSlice.reducer

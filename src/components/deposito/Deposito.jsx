@@ -85,7 +85,7 @@ export default () => {
     }
     return(
         <div className="container content ">
-            <h2 className='text-white'>Deposito</h2>
+            <h2 className=''>Deposito</h2>
             <div className="card ">
                 <div className="card-body">
                     <div class="mb-3 row">

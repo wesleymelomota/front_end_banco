@@ -1,9 +1,10 @@
 import { Link } from "react-router-dom"
+import './index.css'
 
 export default () => {
     
     return(
-        <div className="index container-fluid d-block">
+        <div className="container-fluid d-block main">
             <header className="f-1">
                 <h1 className="text-white">Banco WMM</h1>
             </header>
@@ -19,11 +20,11 @@ export default () => {
                 
            </span>
             <div className="content d-flex  row">
-                <div className="criar-conta m-2 p-1 badge text-wrap fs-6 text-capitalize col-sm">
+                <div className="criar-conta m-2 p-1 badge text-wrap fs-6  col-sm">
                     <h4>Crie Sua conta. é simples e fácil.</h4>
                     <p>Forneça</p>
                     
-                    <ul >
+                    <ul className="instrucoes">
                         <li> Seu nome</li>
                         <li>Um nome de usuário para acessar os serviços</li>
                         <li>Uma senha facil de você lembrar</li>
@@ -32,9 +33,9 @@ export default () => {
                     <p>Apenas com estas informações você pode criar sua conta e logar. 😀</p>
                     <p>Bora Criar uma <Link className="text-decoration-none" to="/conta">conta</Link> ? </p>
                 </div>
-                <div className="services m-2 p-1  badge text-wrap fs-6 text-capitalize col-sm">
+                <div className="services m-2 p-1  badge text-wrap fs-6  col-sm">
                     <h4>Aproveite nossos serviços</h4>
-                    <ul >
+                    <ul className="instrucoes">
                         <li>Saque</li>
                         <li>Deposito</li>
                         <li>Transferência</li>

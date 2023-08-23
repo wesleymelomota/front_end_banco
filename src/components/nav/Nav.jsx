@@ -101,11 +101,11 @@ export default () => {
                 
             </div>
             <div class="dropdown mt-3">
-            <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+            <button class="btn btn-success dropdown-toggle" type="button" data-bs-toggle="dropdown">
                 Perfil
             </button>
             <ul class="dropdown-menu">
-                <li><Link class="dropdown-item disabled" to="/">Alterar dados da Conta</Link></li>
+                <li><Link class="dropdown-item " to="/informacoes-conta">Alterar dados da Conta</Link></li>
                 <li><Link class="dropdown-item disabled" to="#">Another action</Link></li>
                 <li><Link class="dropdown-item disabled" to="#">Apagar Conta</Link></li>
             </ul>

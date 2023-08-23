@@ -7,6 +7,7 @@ import Saque from "../saque/Saque"
 import Index from "../index/Index"
 import Login from "../login/Login"
 import {PrivateRoute} from "./routesPrivate/PrivateRoute"
+import UsuarioForm from "../usuario/usuario-form/UsuarioForm"
     
     export default () => {
 
@@ -19,6 +20,7 @@ import {PrivateRoute} from "./routesPrivate/PrivateRoute"
         <Route path="/transferencias" element={<PrivateRoute><Main/></PrivateRoute>}/>
         <Route path="/deposito" element={<PrivateRoute><Deposito/></PrivateRoute>}/>
         <Route path="/saque" element={<PrivateRoute><Saque/></PrivateRoute>}/>
+        <Route path="/informacoes-conta" element={<PrivateRoute><UsuarioForm/></PrivateRoute>}/>
         <Route path="*" element={<Index/>} />
       
         </Routes>

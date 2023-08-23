@@ -3,7 +3,7 @@ import './transferencia.css'
 import { useSelector, useDispatch } from 'react-redux'
 import { setConta } from '../../recursos/conta/contaSlice'
 import serviceTransferencia from '../../api/serviceTransferencia'
-/*add serviceTransferencia */
+
 export default () => {
     
     const [valor, setValor] = useState('')
@@ -30,6 +30,7 @@ export default () => {
         
     }
     const formatMoeda = (moeda) => {
+        
         return new Intl.NumberFormat('pt-BR', {style: 'currency', currency: 'BRL'}).format(moeda)
     }
     const getSelectTipo = ()=> {
@@ -129,7 +130,7 @@ export default () => {
                     </div>
                 </div>
                 <div class="mb-3 row">
-                    <label for="staticEmail" class="col-sm-2 col-form-label  fs-6">Nome</label>
+                    <label for="staticEmail" class="col-sm-2 col-form-label  fs-6">Nome Responsável Conta</label>
                     <div class="col-sm-10">
                     <input type="text" value={nomeOperadorTransferencia} readonly name="nomeOperadorTransferencia" onChange={getNomeOperador} class="form-control" id="" />
                     </div>
