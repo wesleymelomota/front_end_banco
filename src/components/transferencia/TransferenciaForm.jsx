@@ -162,7 +162,7 @@ export default () => {
         </>
     }
     return(
-        <div className="form-content container">
+        <div className="form-content container-fluid">
             <div className="card ">
                 <div className="card-body">
 

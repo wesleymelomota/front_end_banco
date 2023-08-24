@@ -7,7 +7,7 @@ export default class Main extends Component  {
     render(){
 
         return(
-            <div className="main">
+            <div className="main-content">
                 
                 <div className="d-flex flex-column justify-content-evenly">
                 <Filter></Filter>

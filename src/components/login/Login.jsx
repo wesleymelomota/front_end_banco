@@ -33,7 +33,7 @@ export default () => {
     
     
     return(
-        <div className="main">
+        <div className="main-login">
             <div className="card">
                 <div className="card-body">
                     <h4>Entrar</h4>

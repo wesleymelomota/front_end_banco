@@ -49,9 +49,9 @@ export default () => {
     }
     return(
         <div className="d-flex flex-column m-4">
-            <header className="d-flex justify-content-evenly">
-                <label className="color-white"><b>Saldo total: {formatMoeda(saldoTotal)}</b> </label>
-                <label className="color-white"><b>Saldo total no periodo: {formatMoeda(getTotalPeriodo())}</b> </label>
+            <header className="d-flex justify-content-around">
+                <label className="text-dark"><b>Saldo total: {formatMoeda(saldoTotal)}</b> </label>
+                <label className="text-dark"><b>Saldo total no periodo: {formatMoeda(getTotalPeriodo())}</b> </label>
             </header>
             <div className="conteudo">
 

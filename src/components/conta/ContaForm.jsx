@@ -38,7 +38,7 @@ export default () => {
     } 
     
     return(
-            <><div className="main">
+            <><div className="main-conta">
 
                 <div className="card m-5">
                     <h1>Crie Uma Conta</h1>

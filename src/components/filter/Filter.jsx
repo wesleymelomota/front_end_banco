@@ -38,16 +38,16 @@ export default () => {
             <span className="d-flex justify-content-around flex-wrap">
                 
                     <div class="mb-3">
-                        <label for="exampleFormControlInput1" className="form-label color-white">Data Inicio</label>
+                        <label for="exampleFormControlInput1" className="form-label text-dark">Data Inicio</label>
                         <input type="date" onChange={getDataInicio} value={dataInicio} className="form-control" id="exampleFormControlInput1" placeholder=""/>
                         
                     </div>
                     <div class="mb-3">
-                        <label for="exampleFormControlInput1" className="form-label color-white">Data Fim</label>
+                        <label for="exampleFormControlInput1" className="form-label text-dark">Data Fim</label>
                         <input type="date" onChange={getDataFim} value={dataFim} className="form-control" id="exampleFormControlInput1" placeholder=""/>
                     </div>
                 <div class="mb-3">
-                    <label for="exampleFormControlInput1" className="form-label color-white">Nome Operador</label>
+                    <label for="exampleFormControlInput1" className="form-label text-dark">Nome Operador</label>
                     <input type="search" aria-label="Search" value={nomeOperador} onChange={getNomeOperador} class="form-control" id="exampleFormControlInput1" placeholder="nome"/>
                 </div>
             </span>

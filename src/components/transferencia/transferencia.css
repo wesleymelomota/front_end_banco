@@ -1,9 +1,15 @@
 .form-content{
+    /* width: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100vh; */
     width: 80%;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    height: 100vh;
+    /* height: 100vh; */
+    margin: 8px auto;
 }
 .formulario{
     height: 80%;
